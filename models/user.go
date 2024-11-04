@@ -1,12 +1,27 @@
 package models
 
-// User represents the user model with only the necessary fields
-type Sample struct {
-    ID   uint   `json:"id" gorm:"primaryKey"` // You can define ID as primary key
-    Name string `json:"name"`
-    Age  int    `json:"age"`
+import "time" // Import the time package
+
+// Users represents the user model with necessary fields
+type Users struct {
+    UserID       uint   `gorm:"primaryKey;column:user_id"` // Primary key for the user
+    Name     string `json:"username"`                  // Username of the user
+    Password string `json:"password"`                  // Password of the user (consider hashing this)
 }
 
-func (Sample) TableName() string {
-    return "sample" // Specify the exact table name
+// TableName specifies the exact table name for the Users model
+func (Users) TableName() string {
+    return "users" // Specify the exact table name
+}
+
+// UserLogin represents the user login model with necessary fields
+type UserLogin struct {
+    ID           uint      `json:"login_id" gorm:"primaryKey;auto_increment"` // Primary key for the user login
+    UserID       uint   `gorm:"primaryKey;column:user_id"`                    // User ID; foreign key
+    ModifiedTime time.Time `json:"modified_time"`              // Time of last modification
+}
+
+// TableName specifies the exact table name for the UserLogin model
+func (UserLogin) TableName() string {
+    return "user_login" // Specify the exact table name
 }
