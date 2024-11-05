@@ -11,7 +11,10 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the application source code to the container
-COPY . .
+COPY . . 
+
+# Copy the .env file to the container
+COPY .env ./
 
 # Build the Go application
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ginapi .
@@ -27,6 +30,9 @@ WORKDIR /app
 
 # Copy the binary from the builder stage
 COPY --from=builder /app/ginapi .
+
+# Copy the .env file to the runtime container
+COPY --from=builder /app/.env ./
 
 # Expose the port your Gin application runs on
 EXPOSE 8080

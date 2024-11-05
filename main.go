@@ -31,7 +31,7 @@ func main() {
     r.POST("/login", authController.Login)
     r.POST("/verify", controllers.VerifyIDToken)
     // Start the server
-    if err := r.Run("192.168.23.53:8080"); err != nil {
-        panic(err) // Handle error in starting the server
-    }
+    if err := r.Run("0.0.0.0:8080"); err != nil {
+        panic(err) // Handle error in starting the server  
+        }
 }

@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -31,7 +32,7 @@ func ConnectDB() {
     log.Println("DB_NAME:", dbName)
 
     // Construct DSN
-    dsn := dbUser + ":" + dbPass + "@tcp(" + dbHost + ")/" + dbName + "?charset=utf8mb4&parseTime=True&loc=Local"
+    dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbName)
     log.Println("Connecting to database with DSN:", dsn)
 
     // Connect to the database

@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_USER=root
+      - DB_PASS=1234
+      - DB_HOST=db
+      - DB_NAME=sample_go
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: sample_go
+    ports:
+      - "3306:3306"
