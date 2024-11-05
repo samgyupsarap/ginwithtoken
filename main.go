@@ -4,6 +4,7 @@ import (
 	"gin-app/controllers" // Adjust the import path according to your project structure
 	"gin-app/db"          // Import your db package for the database connection
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,6 +14,15 @@ func main() {
 
     // Initialize Gin
     r := gin.Default()
+
+        // CORS configuration
+        r.Use(cors.New(cors.Config{
+            AllowOrigins:     []string{"http://localhost:5173"}, // Allow your frontend origin
+            AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+            AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+            ExposeHeaders:    []string{"Content-Length"},
+            AllowCredentials: true,
+        }))
 
     // Create an instance of your AuthController
     authController := controllers.NewAuthController()
