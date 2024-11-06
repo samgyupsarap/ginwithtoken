@@ -25,3 +25,14 @@ type UserLogin struct {
 func (UserLogin) TableName() string {
     return "user_login" // Specify the exact table name
 }
+
+type UserRegister struct{
+    ID        uint           `json:"login_id" gorm:"primaryKey;auto_increment"`// Primary key
+	Username  string         `gorm:"unique;not null" json:"username"` // Unique username field
+	Password  string         `gorm:"not null" json:"password"`      // Plain text password (not recommended)
+	CreatedAt time.Time      `json:"created_at"`                    // Created timestamp
+
+}
+func (UserRegister) TableName() string {
+    return "user_register" // Specify the exact table name
+}

@@ -1,19 +1,24 @@
 package routes
 
 import (
-    "gin-app/controllers" // Adjust the import path according to your project structure
-    "github.com/gin-gonic/gin"
+	"gin-app/controllers" // Adjust the import path according to your project structure
+
+	"github.com/gin-gonic/gin"
 )
 
 // SetupRoutes initializes the routes for the application
-func SetupRoutes() *gin.Engine {
-    r := gin.Default()
+func SetupRoutes(r *gin.Engine) {
+	// Create instances of AuthController and RegisterController
+	authController := controllers.NewAuthController()
+	registerController := controllers.NewRegisterController()
 
-    // Create an instance of the AuthController
-    authController := controllers.NewAuthController()
+	// Define the login and register routes
+	r.POST("/login", authController.Login)
+	r.POST("/register", registerController.Register)
 
-    // Define the login route
-    r.POST("/login", authController.Login)
+	// Add other routes here, e.g., token verification
+	r.POST("/verify", controllers.VerifyIDToken)
 
-    return r
+    // Define the route to get all animals
+    r.GET("/animals", controllers.GetAnimals)
 }
